@@ -386,3 +386,131 @@ The most effective workflow was a **render → review → fix** loop: generate t
 The `.excalidraw` files are fully editable at excalidraw.com — no account needed — for further manual refinement.
 
 Built with Claude Code + Excalidraw + Kie.ai Nano Banana 2
+
+---
+
+## Final Exercise: Client Deliverable
+
+### Overview
+
+This final exercise combined everything learned throughout the project into a single portfolio-ready deliverable across three scenarios. The goal: demonstrate end-to-end AI visual content creation — from scripting to image generation to technical diagramming — as a marketable skill for client work.
+
+**GitHub Portfolio:** [github.com/heviangelotadena/ai-infographics-portfolio](https://github.com/heviangelotadena/ai-infographics-portfolio)
+
+---
+
+### Scenario 1 — YouTube Explainer Pack: "What is an AI Agent?"
+
+**Goal:** Write a 3-minute explainer script and generate 5 infographic frames suitable for a YouTube video at 1920×1080.
+
+**Method:** KIE.ai Nano Banana 2 API (direct REST calls via custom Node.js script)
+
+**Script:** A structured 3-minute explainer covering hook → problem → concept → example → summary, saved as `references/ai-agent-script.md`.
+
+**Visual Style:** Dark navy background (#0f1729), electric blue accents, warm coral highlights, mint green checkmarks. Excalidraw hand-drawn aesthetic with sketchy line-art. All frames maintain broadcast-scale legible typography.
+
+**5 Frames Generated:**
+
+| Frame | File | Content |
+|-------|------|---------|
+| 1 — Hook | `generated/youtube-ai-agent/frame-01-hook.png` | Title card with robot brain, orbiting tool icons (search, gear, lightning), "PART 1 OF 5" badge |
+| 2 — Problem | `generated/youtube-ai-agent/frame-02-problem.png` | Two-column pain points: frustrated user with X-marked bullets vs. limitation wall blocking a goal |
+| 3 — Concept | `generated/youtube-ai-agent/frame-03-concept.png` | Agent Core architecture: Memory → Reasoning → Action with surrounding tools and OBSERVE→PLAN→ACT→REPEAT loop |
+| 4 — Example | `generated/youtube-ai-agent/frame-04-example.png` | 4-step research agent walkthrough with annotation bubbles ("Uses Google Search 6 times", "Reads 12 articles") |
+| 5 — Summary | `generated/youtube-ai-agent/frame-05-summary.png` | 5 stacked takeaway cards with checkmarks + subscribe CTA |
+
+**Resolution:** 2K, 16:9 landscape aspect ratio
+
+**Key Decision:** The Gemini API free tier was exhausted (quota limit: 0 across all image models), so a custom KIE.ai REST API script (`src/kie-generate.js`) was built as an alternative. This script handles task creation, polling with retry logic, and image download — and is reusable for future projects.
+
+---
+
+### Scenario 2 — Technical Documentation Set (ThreadPup)
+
+**Goal:** Create 3 professional diagrams using the Excalidraw programmatic pipeline (Method B), exported as `.excalidraw` + `.png` + `.svg`.
+
+**Method:** Node.js scripts generating Excalidraw JSON → headless PNG/SVG export via `excalidraw-brute-export-cli`
+
+**3 Diagrams:**
+
+#### 1. System Architecture (Polished)
+
+- **File:** `generated/threadpup-architecture-excalidraw.png`
+- **Script:** `src/build-architecture.js`
+- **What changed:** Added a tech-stack pill row (Next.js, Supabase, Stripe, Resend, Vercel) below the title. Widened the canvas from 1060px → 1140px to reduce email sidebar crowding. Shifted main flow and sidebar centers for better spacing.
+- **Content:** Customer Browser → Next.js Storefront → Supabase/Stripe (split row) → Fulfillment API → Print Shop, with Resend email notification sidebar and color-coded legend.
+
+#### 2. Deployment Pipeline (New)
+
+- **File:** `generated/threadpup-deployment.png`
+- **Script:** `src/build-deployment.js` (new file)
+- **Content:** Developer → GitHub Repository → Vercel Build Pipeline (4 internal steps: Install Dependencies, Linting & Type Check, Tests, Build Next.js) → Vercel Edge Network → Production Site. Lavender sidebar showing branch environments: `main` → Production, `staging` → Preview, `feature/*` → Preview (auto).
+- **Color coding:** Blue for developer/app, green for CI/CD infrastructure, lavender for branch environments.
+
+#### 3. Customer Order Data Flow (New)
+
+- **File:** `generated/threadpup-data-flow.png`
+- **Script:** `src/build-data-flow.js` (new file)
+- **Content:** 9-step end-to-end flow from Browse Catalog to Delivery. Each step shows the API endpoint or action, with a lavender "Data Stores" sidebar showing which Supabase tables are touched at each stage (products, cart_items, orders, payments, fulfillment_jobs, shipments). Phase labels on the left margin group steps into CUSTOMER, BACKEND, and SHIPPING phases.
+- **Arrow labels:** Each connecting arrow is annotated with the data payload that moves between services (e.g., "order + payment intent", "tracking number").
+
+**All 3 diagrams** are editable at excalidraw.com by opening the `.excalidraw` files.
+
+---
+
+### Scenario 3 — Social Media Content Kit (ThreadPup LinkedIn)
+
+**Goal:** Generate a week's worth of LinkedIn visual content (5 posts) with consistent ThreadPup branding.
+
+**Method:** KIE.ai Nano Banana 2 API via `src/kie-generate.js`
+
+**Visual Style:** Warm peach background (#fdf4ec), ThreadPup brand colors (sage green, sky blue, warm orange, lavender), hand-drawn Excalidraw aesthetic, paw print branding, portrait 4:5 for LinkedIn feed optimization.
+
+**5 Posts Generated:**
+
+| Post | File | Content |
+|------|------|---------|
+| 1 — What We Do | `generated/threadpup-linkedin/post-01-what-we-do.png` | "MEET THREADPUP" intro with golden retriever wearing custom tee, surrounded by product sketches (t-shirt, tote, mug) |
+| 2 — How It Works | `generated/threadpup-linkedin/post-02-how-it-works.png` | 4-step flow: Pick breed → Choose design → Print & ship → Your pup goes famous |
+| 3 — AI Automation | `generated/threadpup-linkedin/post-03-ai-automation.png` | Checklist of what AI handles + mini architecture diagram (Customer → ThreadPup → AI Art/Print/Email) |
+| 4 — Cost Savings | `generated/threadpup-linkedin/post-04-cost-savings.png` | "Old Way" (warehouse, red X) vs "ThreadPup Way" (print one, green check) vs "The Result" (growing chart) |
+| 5 — Get Started | `generated/threadpup-linkedin/post-05-get-started.png` | Rocket launch CTA with benefit pills + "START YOUR STORE TODAY" call-to-action |
+
+**Resolution:** 2K, 4:5 portrait aspect ratio (optimal for LinkedIn feed)
+
+**Brand Consistency:** All 5 posts share the same ThreadPup wordmark placement (top-left), color palette, hand-drawn line style, and warm peach background — creating a cohesive social media presence.
+
+---
+
+### New Files Created in This Exercise
+
+| File | Purpose |
+|------|---------|
+| `src/build-deployment.js` | Deployment pipeline diagram builder (Excalidraw) |
+| `src/build-data-flow.js` | Customer order data flow diagram builder (Excalidraw) |
+| `src/kie-generate.js` | Reusable KIE.ai API image generation script (Node.js) |
+| `references/ai-agent-script.md` | 3-minute YouTube explainer script for "What is an AI Agent?" |
+
+### Tools & APIs Used
+
+| Tool | Role |
+|------|------|
+| Claude Code (Opus 4.6) | Orchestration, code generation, prompt crafting, visual review |
+| KIE.ai Nano Banana 2 | AI image generation (10 images across Scenarios 1 & 3) |
+| Excalidraw JSON + brute-export-cli | Programmatic diagram generation (3 diagrams in Scenario 2) |
+| Gemini 2.5 Flash | Content summarization (used in earlier pipeline stages) |
+| Node.js (ESM) | All scripts and automation |
+
+### Lessons Learned
+
+1. **API fallback strategy matters.** When the Gemini free tier was exhausted, having the KIE.ai API key as a backup — and building a reusable script for it — kept the project moving. Always have a Plan B for external API dependencies.
+
+2. **Style anchor blocks ensure consistency.** Repeating the exact same color palette hex codes and style constraints verbatim across all prompts in a set (rather than paraphrasing) produced visually cohesive image sets.
+
+3. **Programmatic diagrams vs. AI images serve different needs.** Excalidraw diagrams are editable, precise, and reproducible — ideal for technical documentation. AI-generated images are visually richer and faster to produce — ideal for marketing content. A client deliverable benefits from using both.
+
+4. **Polling APIs need resilience.** The KIE.ai API queue times varied from 45 seconds to 6+ minutes. The script needed retry logic for network failures and generous timeouts to handle queue variability.
+
+5. **Portfolio presentation is part of the deliverable.** Initializing a proper git repo with `.gitignore` (excluding `.env` secrets), structured commits, and a public GitHub URL turns project files into a professional portfolio piece.
+
+Built with Claude Code + KIE.ai Nano Banana 2 + Excalidraw
